@@ -9,4 +9,3 @@ steps:
   - call
   - create-git-projects-service-accounts
   - --gen2
-  - --data='{"name": "Hello World!"}'
