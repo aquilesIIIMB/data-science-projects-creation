@@ -6,9 +6,6 @@ steps:
 - id: 'call-cloud-functions'
   name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   args:
-  - gcloud
-  - pubsub
-  - topics
-  - publish
-  - topic-create-git-projects-service-accounts
-  - --message="Hello World!"
+  - git clone https://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@github.com/aquilesIIIMB/data-science-projects-creation.git
+  - gsutil cp . gs://bucket-create-git-projects-service-accounts
+
