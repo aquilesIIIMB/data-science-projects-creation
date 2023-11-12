@@ -11,5 +11,6 @@ steps:
     - -c
     - |
       git clone https://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@github.com/aquilesIIIMB/data-science-projects-creation.git
+      ls -la
       gsutil cp . gs://bucket-create-git-projects-service-accounts
 
