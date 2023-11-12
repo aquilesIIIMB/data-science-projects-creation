@@ -9,6 +9,6 @@ steps:
   - gcloud
   - pubsub
   - topics
+  - publish
   - topic-create-git-projects-service-accounts
-  - --region=us-central1
   - --message="Hello World!"
