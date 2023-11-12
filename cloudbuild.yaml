@@ -5,10 +5,8 @@ options:
 steps:
 - id: 'call-cloud-functions'
   name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: "bash"
   args:
-  - gcloud
-  - functions
-  - call
-  - create-git-projects-service-accounts
-  - --region=us-central1
-  - --account=build-create-git-projects@ml-framework-config.iam.gserviceaccount.com
+    - "-c"
+    - |
+      curl -m 70 -X POST https://us-central1-ml-framework-config.cloudfunctions.net/create-git-projects-service-accounts -H "Authorization: bearer $(gcloud auth print-identity-token)" -H "Content-Type: application/json" -d '{"name": "Hello World"}'
