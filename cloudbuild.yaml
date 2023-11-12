@@ -10,5 +10,4 @@ steps:
   - functions
   - call
   - create-git-projects-service-accounts
-  - --gen2
   - --region=us-central1
