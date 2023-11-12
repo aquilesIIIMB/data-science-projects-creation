@@ -1,11 +1,14 @@
+serviceAccount: 'projects/ml-framework-config/serviceAccounts/build-create-git-projects'
 options:
   logging: CLOUD_LOGGING_ONLY
 
 steps:
 - id: 'call-cloud-functions'
   name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: "bash"
   args:
-    - "-c"
-    - |
-      curl -m 70 -X POST https://us-central1-ml-framework-config.cloudfunctions.net/create-git-projects-service-accounts -H "Authorization: bearer $(gcloud auth print-identity-token)" -H "Content-Type: application/json" -d '{"name": "Hello World"}'
+  - gcloud
+  - pubsub
+  - topics
+  - topic-create-git-projects-service-accounts
+  - --region=us-central1
+  - --message="Hello World!"
