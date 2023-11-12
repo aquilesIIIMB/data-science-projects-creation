@@ -1,0 +1,12 @@
+serviceAccount: 'projects/ml-framework-config/serviceAccounts/build-create-git-projects'
+
+steps:
+- id: 'build-preprocessing'
+  name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  args:
+  - gcloud
+  - functions
+  - call
+  - create-git-projects-service-accounts
+  - --gen2
+  - --data='{"name": "Hello World!"}'
