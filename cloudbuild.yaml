@@ -1,3 +1,6 @@
+serviceAccount: 'projects/ml-framework-config/serviceAccounts/build-create-git-projects'
+options:
+  logging: CLOUD_LOGGING_ONLY
 
 steps:
 - id: 'call-cloud-functions'
