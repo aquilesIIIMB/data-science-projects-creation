@@ -1,5 +1,5 @@
 options:
-  logging: CLOUD_LOGGING_ONLY
+  logging: NONE
 
 serviceAccount: 'projects/ml-framework-config/serviceAccounts/build-create-git-projects'
 
