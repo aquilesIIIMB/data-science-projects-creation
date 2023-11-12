@@ -1,0 +1,7 @@
+{  
+  "project_name": "my-project",  
+  "git_project_name": "{{cookiecutter.project_name}}",  
+  "owner_name": "owner",  
+  "email": "e@mail.com",  
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}"  
+}
