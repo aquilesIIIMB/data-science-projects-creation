@@ -1,0 +1,5 @@
+{  
+  "projectName": "classification-model-test",  
+  "applicationName": "iris_classification",  
+  "description": "Testing a classification model using IRIS dataset"  
+}
