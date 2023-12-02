@@ -12,4 +12,4 @@ steps:
     - |
       git clone https://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@github.com/aquilesIIIMB/data-science-projects-creation.git
       ls -la
-      gsutil cp -r data-science-projects-creation/cookiecutter-config gs://bucket-create-git-projects-service-accounts
+      gsutil cp -r data-science-projects-creation/cookiecutter-config gs://bucket-create-git-projects-b89ce4a5-a3a8-486d-a156-4366af1fe5dc
