@@ -14,7 +14,7 @@ steps:
   args:
     - -c
     - |
-      git clone https://$GITHUB_TOKEN@github.com/aquilesIIIMB/data-science-projects-creation.git
+      git clone https://$$GITHUB_TOKEN@github.com/aquilesIIIMB/data-science-projects-creation.git
       ls -la
       gsutil cp -r data-science-projects-creation/cookiecutter-config gs://bucket-create-git-projects-b89ce4a5-a3a8-486d-a156-4366af1fe5dc
   secretEnv: ['GITHUB_TOKEN']
