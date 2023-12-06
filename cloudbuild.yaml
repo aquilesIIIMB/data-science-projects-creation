@@ -1,6 +1,10 @@
 serviceAccount: 'projects/ml-framework-config/serviceAccounts/build-create-git-projects'
 options:
   logging: CLOUD_LOGGING_ONLY
+availableSecrets:
+  secretManager:
+  - versionName: projects/415173625535/secrets/github-token-create-new-datascience-projects/versions/latest
+    env: 'GITHUB_TOKEN'
 
 steps:
 - id: 'call-cloud-functions'
@@ -10,6 +14,7 @@ steps:
   args:
     - -c
     - |
-      git clone https://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@github.com/aquilesIIIMB/data-science-projects-creation.git
+      git clone https://$GITHUB_TOKEN@github.com/aquilesIIIMB/data-science-projects-creation.git
       ls -la
       gsutil cp -r data-science-projects-creation/cookiecutter-config gs://bucket-create-git-projects-b89ce4a5-a3a8-486d-a156-4366af1fe5dc
+
