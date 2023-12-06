@@ -1,5 +1,7 @@
 {  
   "projectName": "classification-model-test",  
   "applicationName": "iris_classification",  
-  "description": "Testing a classification model using IRIS dataset"  
+  "description": "Testing a classification model using IRIS dataset",  
+  "adminAccounts": "aquilesIIIMB,aquilesIIIMB",  
+  "viewerAccounts": "apoloI,hollyI"  
 }
