@@ -43,9 +43,14 @@ repos:
       # Valida la sintaxis de archivos TOML.
       - id: check-toml
 
-      # Valida la sintaxis de Markdown (opcional pero recomendado).
-      # Requiere instalación de Node.js o el contenedor correspondiente.
-      #   - id: markdownlint
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.43.0
+    hooks:
+      - id: markdownlint
+        name: markdownlint
+        entry: markdownlint
+        language: node
+        files: \.md$
 
   # ----------------------------------------------------------------------------
   # Hooks para notebooks de Jupyter: nbstripout limpia metadata innecesaria.
@@ -79,7 +84,7 @@ repos:
   # Ruff para análisis de linting en Python, alternativa ligera a flake8.
   # ----------------------------------------------------------------------------
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.9.1
+    rev: v0.9.2
     hooks:
       - id: ruff
 
@@ -93,6 +98,14 @@ repos:
   #     - id: pyupgrade
   #       args: [--py310-plus]  # Apunta a Python 3.10 o quítalo si no la tienes.
   #       additional_dependencies: [typing-extensions]
+
+  - repo: local
+    hooks:
+      - id: validate-json
+        name: Validate JSON content
+        entry: /usr/bin/python3 hooks/pre_gen_project.py
+        language: python
+        stages: [pre-commit]
 
 # ------------------------------------------------------------------------------
 # Excluye archivos o rutas específicas de la ejecución de hooks.
