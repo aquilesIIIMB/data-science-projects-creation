@@ -1,7 +1,7 @@
 {
   "projectName": "",
   "applicationName": "",
-  "description": "",
+  "projectDescription": "",
   "adminAccounts": "",
   "viewerAccounts": "",
   "serviceAccountMaasName": "",
@@ -13,6 +13,16 @@
   "datasetMaasName": "",
   "datasetExplorationName": "",
   "datasetDiscoveryName": "",
+  "ComputeResourcesCPU": "",
+  "ComputeResourcesRAM": "",
+  "ComputeResourcesStorage": "",
+  "ComputeResourcesGPU": "",
+  "Sources": "",
+  "ModelType": "",
+  "InferenceSchema": "",
+  "SourceSizeEstimationKB": "",
+  "ModelSizeEstimationKB": "",
+  "runtimeBase": "",
   "_extensions": [
     "cookiecutter.extensions.SlugifyExtension",
     "jinja2_time.TimeExtension"
