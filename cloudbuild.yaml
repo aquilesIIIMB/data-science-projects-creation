@@ -9,7 +9,6 @@ availableSecrets:
 steps:
 - id: 'call-cloud-functions'
   name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  args:
   entrypoint: 'bash'
   args:
     - -c

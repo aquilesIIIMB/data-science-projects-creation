@@ -1,0 +1,20 @@
+{
+  "projectName": "",
+  "applicationName": "",
+  "description": "",
+  "adminAccounts": "",
+  "viewerAccounts": "",
+  "serviceAccountMaasName": "",
+  "serviceAccountExplorationName": "",
+  "serviceAccountDiscoveryName": "",
+  "bucketMaasName": "",
+  "bucketExplorationName": "",
+  "bucketDiscoveryName": "",
+  "datasetMaasName": "",
+  "datasetExplorationName": "",
+  "datasetDiscoveryName": "",
+  "_extensions": [
+    "cookiecutter.extensions.SlugifyExtension",
+    "jinja2_time.TimeExtension"
+  ]
+}

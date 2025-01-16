@@ -1,0 +1,27 @@
+name: Validate JSON
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-json-files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install jsonschema
+          # O cualquier otra librería necesaria para validaciones específicas
+
+      - name: Validate JSON
+        run: |
+          python hooks/pre_gen_project.py
+          # El script debe comprobar parámetros y valores en los archivos JSON
