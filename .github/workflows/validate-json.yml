@@ -18,7 +18,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install jsonschema
+          pip install jsonschema pydantic
           # O cualquier otra librería necesaria para validaciones específicas
 
       - name: Validate JSON

@@ -1,10 +1,11 @@
 import glob
 import json
+import os
 import sys
 from typing import List, Literal, Optional, Union
 
 # Importamos clases y tipos necesarios de Pydantic
-from pydantic import BaseModel, Field, ValidationError, conint, constr
+from pydantic import BaseModel, Field, RootModel, ValidationError, conint, constr
 
 # --------------------------------------------------------------------
 # Definiciones de tipos reutilizables
@@ -51,30 +52,30 @@ class MLPipeline(BaseModel):
     )
 
     # 4-5) Cuentas Admin y Viewer
-    adminAccounts: List[EmailStr] = Field(
+    adminAccounts: Union[List[EmailStr], EmailStr] = Field(
         ...,
         description="List of valid email addresses with Admin access for created resources.",
     )
-    viewerAccounts: List[EmailStr] = Field(
+    viewerAccounts: Union[List[EmailStr], EmailStr] = Field(
         ...,
         description="List of valid email addresses with Viewer access for created resources.",
     )
 
     # 6-8) Service Accounts
-    serviceAccountMaasName: Optional[List[ServiceAccountName]] = Field(
-        None, description="Service account(s) for the GCP deployment project."
-    )
-    serviceAccountExplorationName: Optional[List[ServiceAccountName]] = Field(
-        None, description="Service account(s) for the GCP exploration project."
-    )
-    serviceAccountDiscoveryName: Optional[List[ServiceAccountName]] = Field(
-        None, description="Service account(s) for the GCP discovery project."
-    )
+    serviceAccountMaasName: Optional[
+        Union[List[ServiceAccountName], ServiceAccountName]
+    ] = Field(None, description="Service account(s) for the GCP deployment project.")
+    serviceAccountExplorationName: Optional[
+        Union[List[ServiceAccountName], ServiceAccountName]
+    ] = Field(None, description="Service account(s) for the GCP exploration project.")
+    serviceAccountDiscoveryName: Optional[
+        Union[List[ServiceAccountName], ServiceAccountName]
+    ] = Field(None, description="Service account(s) for the GCP discovery project.")
 
     # 9-11) Buckets
-    bucketMaasName: Optional[List[BucketName]] = Field(
+    bucketMaasName: Optional[BucketName] = Field(
         None,
-        description="Name(s) of Cloud Storage bucket(s) for the GCP deployment project.",
+        description="Name of Cloud Storage bucket for the GCP deployment project.",
     )
     bucketExplorationName: Optional[BucketName] = Field(
         None,
@@ -86,9 +87,9 @@ class MLPipeline(BaseModel):
     )
 
     # 12-14) Datasets
-    datasetMaasName: Optional[List[DatasetName]] = Field(
+    datasetMaasName: Optional[DatasetName] = Field(
         None,
-        description="Name(s) of BigQuery dataset(s) for the GCP deployment project.",
+        description="Name of BigQuery dataset for the GCP deployment project.",
     )
     datasetExplorationName: Optional[DatasetName] = Field(
         None,
@@ -110,19 +111,30 @@ class MLPipeline(BaseModel):
     ComputeResourcesStorage: conint(ge=10, le=65536) = Field(
         ..., description="Storage in GB (10-65536). Based on Compute Engine limits."
     )
-    ComputeResourcesGPU: conint(ge=0, le=8) = Field(
+    ComputeResourcesGPUCores: conint(ge=0, le=128) = Field(
         ...,
         description="Number of GPUs (0-8). Based on Vertex AI Training and Workbench limits.",
     )
-
-    # 19) Fuentes de Datos
-    Sources: List[constr(min_length=3, max_length=200)] = Field(
-        ..., description="Paths of data sources (Cloud Storage, BigQuery, etc.)."
+    ComputeResourcesGPUType: Literal[
+        "T4", "V100", "P100", "P4", "L4", "A100", "H100", "H200"
+    ] = Field(
+        ...,
+        description="Type(s) of GPU types: T4, V100, P100, P4, L4, A100, H100, H200.",
     )
 
+    # 19) Fuentes de Datos
+    Sources: Union[
+        List[constr(min_length=3, max_length=200)], constr(min_length=3, max_length=200)
+    ] = Field(..., description="Paths of data sources (Cloud Storage, BigQuery, etc.).")
+
     # 20) Tipo de Modelo
-    ModelType: List[
-        Literal["classification", "regression", "clustering", "gen-ai", "time-series"]
+    ModelType: Union[
+        List[
+            Literal[
+                "classification", "regression", "clustering", "gen-ai", "time-series"
+            ]
+        ],
+        Literal["classification", "regression", "clustering", "gen-ai", "time-series"],
     ] = Field(
         ...,
         description="Type(s) of model: classification, regression, clustering, gen-ai or time-series.",
@@ -171,30 +183,30 @@ class AgenticPipeline(BaseModel):
     )
 
     # 4-5) Cuentas Admin y Viewer
-    adminAccounts: List[EmailStr] = Field(
+    adminAccounts: Union[List[EmailStr], EmailStr] = Field(
         ...,
         description="List of valid email addresses with Admin access for created resources.",
     )
-    viewerAccounts: List[EmailStr] = Field(
+    viewerAccounts: Union[List[EmailStr], EmailStr] = Field(
         ...,
         description="List of valid email addresses with Viewer access for created resources.",
     )
 
     # 6-8) Service Accounts
-    serviceAccountMaasName: Optional[List[ServiceAccountName]] = Field(
-        None, description="Service account(s) for the GCP deployment project."
-    )
-    serviceAccountExplorationName: Optional[List[ServiceAccountName]] = Field(
-        None, description="Service account(s) for the GCP exploration project."
-    )
-    serviceAccountDiscoveryName: Optional[List[ServiceAccountName]] = Field(
-        None, description="Service account(s) for the GCP discovery project."
-    )
+    serviceAccountMaasName: Optional[
+        Union[List[ServiceAccountName], ServiceAccountName]
+    ] = Field(None, description="Service account(s) for the GCP deployment project.")
+    serviceAccountExplorationName: Optional[
+        Union[List[ServiceAccountName], ServiceAccountName]
+    ] = Field(None, description="Service account(s) for the GCP exploration project.")
+    serviceAccountDiscoveryName: Optional[
+        Union[List[ServiceAccountName], ServiceAccountName]
+    ] = Field(None, description="Service account(s) for the GCP discovery project.")
 
     # 9-11) Buckets
-    bucketMaasName: Optional[List[BucketName]] = Field(
+    bucketMaasName: Optional[BucketName] = Field(
         None,
-        description="Name(s) of Cloud Storage bucket(s) for the GCP deployment project.",
+        description="Name of Cloud Storage bucket for the GCP deployment project.",
     )
     bucketExplorationName: Optional[BucketName] = Field(
         None,
@@ -206,9 +218,9 @@ class AgenticPipeline(BaseModel):
     )
 
     # 12-14) Datasets
-    datasetMaasName: Optional[List[DatasetName]] = Field(
+    datasetMaasName: Optional[DatasetName] = Field(
         None,
-        description="Name(s) of BigQuery dataset(s) for the GCP deployment project.",
+        description="Name of BigQuery dataset for the GCP deployment project.",
     )
     datasetExplorationName: Optional[DatasetName] = Field(
         None,
@@ -230,15 +242,21 @@ class AgenticPipeline(BaseModel):
     ComputeResourcesStorage: conint(ge=10, le=65536) = Field(
         ..., description="Storage in GB (10-65536). Based on Compute Engine limits."
     )
-    ComputeResourcesGPU: conint(ge=0, le=8) = Field(
+    ComputeResourcesGPUCores: conint(ge=0, le=128) = Field(
         ...,
         description="Number of GPUs (0-8). Based on Vertex AI Training and Workbench limits.",
     )
+    ComputeResourcesGPUType: Literal[
+        "T4", "V100", "P100", "P4", "L4", "A100", "H100", "H200"
+    ] = Field(
+        ...,
+        description="Type(s) of GPU types: T4, V100, P100, P4, L4, A100, H100, H200.",
+    )
 
     # 19) Fuentes de Datos
-    Sources: List[constr(min_length=3, max_length=200)] = Field(
-        ..., description="Paths of data sources (Cloud Storage, BigQuery, etc.)."
-    )
+    Sources: Union[
+        List[constr(min_length=3, max_length=200)], constr(min_length=3, max_length=200)
+    ] = Field(..., description="Paths of data sources (Cloud Storage, BigQuery, etc.).")
 
     # 21) Esquema de Inferencia
     InferenceSchema: dict = Field(
@@ -261,7 +279,12 @@ class AgenticPipeline(BaseModel):
 # --------------------------------------------------------------------
 # Unión de modelos (MLPipeline o AgenticPipeline)
 # --------------------------------------------------------------------
-JSONFormat = Union[MLPipeline, AgenticPipeline]
+class PipelineUnion(RootModel[Union[MLPipeline, AgenticPipeline]]):
+    """Modelo raíz que permite la validación de cualquiera de los dos submodelos."""
+
+    # Podrías agregar validadores, métodos, etc., si lo deseas.
+    # Por defecto, esto actúa como un 'wrapper' para la unión.
+    pass
 
 
 # --------------------------------------------------------------------
@@ -273,8 +296,11 @@ def main() -> int:
     contra los modelos Pydantic definidos. Si alguno falla, imprime el error y
     finaliza con código de salida 1; si todos pasan, finaliza con 0.
     """
+    # Calcula la ruta a cookiecutter-config basado en donde está este script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    pattern = os.path.join(script_dir, "..", "cookiecutter-config", "*.json")
     # Se buscan todos los archivos .json del repositorio
-    json_files = glob.glob("../cookiecutter-config/*.json", recursive=True)
+    json_files = glob.glob(pattern)
 
     if not json_files:
         print("[INFO] No se encontraron archivos JSON para validar.")
@@ -290,7 +316,7 @@ def main() -> int:
 
             try:
                 # Pydantic intentará parsear 'data' como MLPipeline o AgenticPipeline
-                JSONFormat.parse_obj(data)
+                PipelineUnion.model_validate(data)
             except ValidationError as ve:
                 print(f"[ERROR] El archivo {f} no cumple con el modelo Pydantic:")
                 # Muestra mensajes detallados de la validación

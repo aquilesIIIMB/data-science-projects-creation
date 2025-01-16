@@ -1,8 +1,18 @@
 {
   "projectName": "classification-model-test",
-  "applicationName": "iris_classification",
-  "description": "Testing a classification model using IRIS dataset",
-  "adminAccounts": "aquilesIIIMB,aquilesIIIMB",
-  "viewerAccounts": "apoloI,hollyI",
-  "casa": "dfa"
+  "applicationName": "iris-classification",
+  "projectDescription": "Testing a classification model using IRIS dataset",
+  "adminAccounts": "aquilesIIIMB@gmail.com",
+  "viewerAccounts": "apoloI@gmail.com",
+  "ComputeResourcesCPU": 4,
+  "ComputeResourcesRAM": 8,
+  "ComputeResourcesStorage": 100,
+  "ComputeResourcesGPUCores": 2,
+  "ComputeResourcesGPUType": "P4",
+  "Sources": "gs://aquilesIIIMB/iris.csv",
+  "ModelType": "classification",
+  "InferenceSchema": {"output": "species", "input": ["sepal_length", "sepal_width", "petal_length", "petal_width"]},
+  "SourceSizeEstimationKB": 100,
+  "ModelSizeEstimationKB": 200,
+  "runtimeBase": "Python3.9"
 }
