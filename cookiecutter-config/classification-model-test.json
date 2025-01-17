@@ -6,7 +6,7 @@
   "viewerAccounts": "apoloI@gmail.com",
   "ComputeResourcesCPU": 4,
   "ComputeResourcesRAM": 4,
-  "ComputeResourcesStorage": 100,
+  "ComputeResourcesStorage": 200,
   "ComputeResourcesGPUCores": 2,
   "ComputeResourcesGPUType": "P4",
   "Sources": "gs://aquilesIIIMB/iris.csv",
