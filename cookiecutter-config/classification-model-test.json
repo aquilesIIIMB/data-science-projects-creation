@@ -5,7 +5,7 @@
   "adminAccounts": "aquilesIIIMB@gmail.com",
   "viewerAccounts": "apoloI@gmail.com",
   "ComputeResourcesCPU": 4,
-  "ComputeResourcesRAM": 8,
+  "ComputeResourcesRAM": 4,
   "ComputeResourcesStorage": 100,
   "ComputeResourcesGPUCores": 2,
   "ComputeResourcesGPUType": "P4",
